@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>品保部出差打卡系統</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    .readonly {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>📍 品保部出差打卡系統</h2>
+
+  <form action="https://formspree.io/f/xdoqwvgr" method="POST">
+    <label>課別</label>
+    <select name="department" required>
+      <option value="">請選擇</option>
+      <option>委外代工品保課</option>
+      <option>供應商稽核課</option>
+    </select>
+
+    <label>姓名</label>
+    <select name="name" required>
+      <option value="">請選擇</option>
+      <option>鐘紫娟</option>
+      <option>董修孝</option>
+      <option>吳欣蔚</option>
+      <option>李哲誠</option>
+      <option>李文佑</option>
+    </select>
+
+    <label>出差地點（代工廠名稱）</label>
+    <input type="text" name="factory" placeholder="請填寫工廠名稱" required>
+
+    <label>GPS 座標（自動填入）</label>
+    <input type="text" name="gps" id="gps" class="readonly" readonly required>
+
+    <label>打卡時間（自動填入）</label>
+    <input type="text" name="time" id="time" class="readonly" readonly required>
+
+    <label>備註</label>
+    <textarea name="note" rows="3"></textarea>
+
+    <button type="submit">✅ 送出打卡</button>
+  </form>
+
+  <script>
+    // 自動填入 GPS 與時間
+    navigator.geolocation.getCurrentPosition(function(position) {
+      document.getElementById("gps").value = position.coords.latitude + "," + position.coords.longitude;
+    }, function() {
+      document.getElementById("gps").value = "無法取得位置";
+    });
+
+    document.getElementById("time").value = new Date().toLocaleString();
+  </script>
+</body>
+</html>
